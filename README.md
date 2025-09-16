@@ -296,6 +296,39 @@ Kode ini mendefinisikan class DonasiService yang bertugas mengelola seluruh data
 
 Secara keseluruhan, class ini adalah inti logika program karena semua operasi CRUD dan pencarian dipusatkan di dalamnya.
 
+## Penjelasan MVC
+1. Model (M) → Struktur Data
+Bagian Model adalah class yang menyimpan data atau menjadi cetakan objek.
+   - Pada program ini, bagian Model adalah Donasi.java.
+   - Class ini berisi atribut seperti id, namaDonatur, jumlah, dan penerima.
+   - Model hanya berfungsi untuk menyimpan data, tidak ada logika perhitungan atau proses bisnis.
+   - Ibaratnya, Model ini adalah wadah data yang akan digunakan oleh Controller dan ditampilkan oleh View.
+
+2. View (V) → Tampilan / Antarmuka
+Bagian View bertugas menampilkan informasi dan berinteraksi dengan pengguna.
+   - Pada program ini, bagian View ditangani oleh class App (atau Main.java).
+   - Di sini terdapat menu interaktif yang ditampilkan ke layar:
+     - Tampilkan Donasi
+     - Tambah Donasi
+     - Edit Donasi
+     - Hapus Donasi
+     - Cari Donasi
+   - View juga menggunakan Scanner untuk menerima input dari pengguna.
+   - Jadi, View adalah jembatan komunikasi antara pengguna dengan logika program.
+
+3. Controller (C) → Logika / Pengendali
+Bagian Controller berfungsi mengatur alur data antara Model dan View.
+   - Pada program ini, bagian Controller adalah DonasiService.java.
+   - Controller berisi logika CRUD (Create, Read, Update, Delete) serta pencarian.
+   - Contoh: saat pengguna menekan menu “Tambah Donasi” di View, maka View akan memanggil method tambahDonasi() yang ada di Controller. Controller lalu mengolah input itu dengan membuat objek baru dari Model Donasi dan menyimpannya ke dalam ArrayList.
+   - Jadi, Controller ini adalah otak utama yang mengatur jalannya program.
+
+Kesimpulan MVC Program Donasi
+   - Model = Donasi.java → menyimpan struktur data donasi.
+   - View = App/Main.java → menampilkan menu, menerima input dari pengguna, dan menampilkan hasil ke layar.
+   - Controller = DonasiService.java → mengatur logika CRUD donasi, menghubungkan data di Model dengan tampilan di View.
+Dengan pola ini, program menjadi lebih terstruktur: data dipisah dari logika, dan logika dipisah dari tampilan. Kalau nanti programnya diperbesar (misalnya pakai database atau GUI), struktur MVC ini akan sangat membantu karena mudah dikembangkan
+
 ## PENJELASAN OUTPUT
 **Menu 1**
 
