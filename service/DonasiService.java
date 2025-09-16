@@ -5,16 +5,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DonasiService {
-    private ArrayList<Donasi> listDonasi = new ArrayList<>();
-    private int nextId = 1;
-    private Scanner scanner = new Scanner(System.in);
+    public ArrayList<Donasi> listDonasi = new ArrayList<>();
+    public int nextId = 1;
+    public Scanner scanner = new Scanner(System.in);
+
+    // Constructor untuk isi data awal
+    public DonasiService() {
+        listDonasi.add(new Donasi(nextId++, "Budianto", 500000, "Panti Asuhan Harapan"));
+        listDonasi.add(new Donasi(nextId++, "Siti Aminah", 250000, "Yayasan Pendidikan"));
+        listDonasi.add(new Donasi(nextId++, "Agus Pratama", 1000000, "Rumah Sakit Sosial"));
+    }
 
     public void tambahDonasi() {
         System.out.print("Nama Donatur: ");
         String nama = scanner.nextLine();
 
         double jumlah = 0;
-        while (true) { // validasi input angka
+        while (true) {
             try {
                 System.out.print("Jumlah Donasi: ");
                 jumlah = Double.parseDouble(scanner.nextLine());
@@ -33,7 +40,7 @@ public class DonasiService {
 
         Donasi donasi = new Donasi(nextId++, nama, jumlah, penerima);
         listDonasi.add(donasi);
-        System.out.println("✅ Donasi berhasil ditambahkan!");
+        System.out.println("Donasi berhasil ditambahkan!");
     }
 
     public void tampilkanDonasi() {
@@ -52,19 +59,19 @@ public class DonasiService {
 
         Donasi target = cariById(id);
         if (target == null) {
-            System.out.println("❌ Donasi tidak ditemukan!");
+            System.out.println("Donasi tidak ditemukan!");
             return;
         }
 
         System.out.print("Nama Donatur baru (kosong = tidak diubah): ");
         String nama = scanner.nextLine();
-        if (!nama.isEmpty()) target.setNamaDonatur(nama);
+        if (!nama.isEmpty()) target.namaDonatur = nama;
 
         System.out.print("Jumlah baru (kosong = tidak diubah): ");
         String jumlahInput = scanner.nextLine();
         if (!jumlahInput.isEmpty()) {
             try {
-                target.setJumlah(Double.parseDouble(jumlahInput));
+                target.jumlah = Double.parseDouble(jumlahInput);
             } catch (NumberFormatException e) {
                 System.out.println("Input jumlah tidak valid, tidak diubah.");
             }
@@ -72,9 +79,9 @@ public class DonasiService {
 
         System.out.print("Penerima baru (kosong = tidak diubah): ");
         String penerima = scanner.nextLine();
-        if (!penerima.isEmpty()) target.setPenerima(penerima);
+        if (!penerima.isEmpty()) target.penerima = penerima;
 
-        System.out.println("✅ Donasi berhasil diperbarui!");
+        System.out.println("Donasi berhasil diperbarui!");
     }
 
     public void hapusDonasi() {
@@ -83,37 +90,35 @@ public class DonasiService {
 
         Donasi target = cariById(id);
         if (target == null) {
-            System.out.println("❌ Donasi tidak ditemukan!");
+            System.out.println("Donasi tidak ditemukan!");
             return;
         }
 
         listDonasi.remove(target);
-        System.out.println("✅ Donasi berhasil dihapus!");
+        System.out.println("Donasi berhasil dihapus!");
     }
 
-    
     public void cariDonasi() {
         System.out.print("Masukkan kata kunci pencarian: ");
         String keyword = scanner.nextLine().toLowerCase();
 
         boolean found = false;
         for (Donasi d : listDonasi) {
-            if (d.getNamaDonatur().toLowerCase().contains(keyword) || 
-                d.getPenerima().toLowerCase().contains(keyword)) {
+            if (d.namaDonatur.toLowerCase().contains(keyword) || 
+                d.penerima.toLowerCase().contains(keyword)) {
                 System.out.println(d);
                 found = true;
             }
         }
 
         if (!found) {
-            System.out.println("❌ Tidak ada hasil pencarian.");
+            System.out.println("Tidak ada hasil pencarian.");
         }
     }
 
- 
-    private Donasi cariById(int id) {
+    public Donasi cariById(int id) {
         for (Donasi d : listDonasi) {
-            if (d.getId() == id) {
+            if (d.id == id) {
                 return d;
             }
         }
